@@ -41,10 +41,11 @@ int main(int argc, char **argv)
         << tp.kTincanVerRev << endl;
     }
     else if(tp.kNeedsHelp) {
-      std::cout << "-v         Version check.\n" <<
+      std::cout << 
+        "-v         Version check" << endl <<
         "-p=[num]   Specify tincan control port" << endl <<
         "-i=COUNT   Specify concurrent I/Os" << endl <<
-        "-p=PORT    Specify control port" << endl;
+        "-h=HELP    Open help" << endl;
     }
     else {
       Tincan tc;
