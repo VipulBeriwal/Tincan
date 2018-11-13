@@ -87,10 +87,10 @@ public:
   {
     for(int i = 1; i < argc; i++){
       if(strncmp(args[i], "-p=", 3) == 0){
-        kUdpPort = (uint16_t)atoi(args[1]+3);
+        kUdpPort = (uint16_t)atoi(args[i]+3);
       }
       else if(strncmp(args[i], "-i=", 3) == 0){
-        char *val = args[1] + 3;
+        char *val = args[i] + 3;
         kLinkConcurrentAIO = (uint8_t)atoi(val);
         if (kLinkConcurrentAIO > 32){
           kLinkConcurrentAIO = 32;
