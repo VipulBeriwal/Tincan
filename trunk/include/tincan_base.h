@@ -81,29 +81,30 @@ using std::vector;
 struct TincanParameters
 {
 public:
-  TincanParameters() :
-    kVersionCheck(false), kNeedsHelp(false), kUdpPort(5800), kLinkConcurrentAIO(2)
-  {}
-  void ParseCmdlineArgs(
-    int argc,
-    char **args)
+  TincanParameters() : kVersionCheck(false), kNeedsHelp(false), kUdpPort(5800), kLinkConcurrentAIO(2) {}
+  
+  void ParseCmdlineArgs(int argc, char **args)
   {
-    if(argc == 2 && strncmp(args[1], "-p=", 3) == 0) {
-      kUdpPort = (uint16_t)atoi(args[1]+3);
-    }
-    if (argc == 2 && strncmp(args[1], "-i=", 3) == 0) {
-      char * val = args[1] + 3;
-      kLinkConcurrentAIO = (uint8_t)atoi(val);
-      if (kLinkConcurrentAIO > 32)
-        kLinkConcurrentAIO = 32;
-    }
-    if(argc == 2 && strncmp(args[1], "-v", 2) == 0) {
-      kVersionCheck = true;
-    }
-    else if(argc == 2 && strncmp(args[1], "-h", 2) == 0) {
-      kNeedsHelp = true;
+    for(int i = 1; i < argc; i++){
+      if(strncmp(args[i], "-p=", 3) == 0){
+        kUdpPort = (uint16_t)atoi(args[1]+3);
+      }
+      else if(strncmp(args[i], "-i=", 3) == 0){
+        char *val = args[1] + 3;
+        kLinkConcurrentAIO = (uint8_t)atoi(val);
+        if (kLinkConcurrentAIO > 32){
+          kLinkConcurrentAIO = 32;
+        }
+      }
+      else if(strncmp(args[i], "-v", 2) == 0){
+        kVersionCheck = true;
+      }
+      else{
+        kNeedsHelp = true;
+      }
     }
   }
+  
   static const uint16_t kTincanVerMjr = 3;
   static const uint16_t kTincanVerMnr = 0;
   static const uint16_t kTincanVerRev = 0;
