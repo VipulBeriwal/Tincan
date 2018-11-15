@@ -100,7 +100,7 @@ public:
         }
         else
         {
-            kUdpPort = port;
+          kUdpPort = port;
         }
       }
       else if(strncmp(args[i], "-i=", 3) == 0)
