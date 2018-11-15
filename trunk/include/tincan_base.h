@@ -116,12 +116,12 @@ public:
         }
         else
         {
-            kLinkConcurrentAIO = count;
-            if (kLinkConcurrentAIO > 32)
-            {
-              kLinkConcurrentAIO = 32;
-            }
+          kLinkConcurrentAIO = count;
+          if (kLinkConcurrentAIO > 32)
+          {
+            kLinkConcurrentAIO = 32;
           }
+        }
       }
       else if(strncmp(args[i], "-v", 2) == 0)
       {
