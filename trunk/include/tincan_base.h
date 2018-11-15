@@ -85,21 +85,50 @@ public:
   
   void ParseCmdlineArgs(int argc, char **args)
   {
-    for(int i = 1; i < argc; i++){
-      if(strncmp(args[i], "-p=", 3) == 0){
-        kUdpPort = (uint16_t)atoi(args[i]+3);
-      }
-      else if(strncmp(args[i], "-i=", 3) == 0){
-        char *val = args[i] + 3;
-        kLinkConcurrentAIO = (uint8_t)atoi(val);
-        if (kLinkConcurrentAIO > 32){
-          kLinkConcurrentAIO = 32;
+    for(int i = 1; i < argc; i++)
+    {
+      if(strncmp(args[i], "-p=", 3) == 0)
+      {
+        istringstream stream(args[i]);
+        stream.ignore(3);
+        int port;
+        char c;
+        if( !(stream >> port) || (port < 1024) || (port > 65535) || stream.get(c) )
+        {
+          kNeedsHelp = true;
+          break;
+        }
+        else
+        {
+            kUdpPort = port;
         }
       }
-      else if(strncmp(args[i], "-v", 2) == 0){
+      else if(strncmp(args[i], "-i=", 3) == 0)
+      {
+        istringstream stream(args[i]);
+        stream.ignore(3);
+        int count;
+        char c;
+        if( !(stream >> count) || stream.get(c) )
+        {
+          kNeedsHelp = true;
+          break;
+        }
+        else
+        {
+            kLinkConcurrentAIO = count;
+            if (kLinkConcurrentAIO > 32)
+            {
+              kLinkConcurrentAIO = 32;
+            }
+          }
+      }
+      else if(strncmp(args[i], "-v", 2) == 0)
+      {
         kVersionCheck = true;
       }
-      else{
+      else
+      {
         kNeedsHelp = true;
       }
     }
